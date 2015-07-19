@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Turtle</title>
+	<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" type="text/css" href="public/css/style.css">
+    
+    
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			
+			
+			
+			<div class="col-xs-12 canv"></div>			
+			
+			<div class="col-md-offset-2 col-md-3 player">
+					<ul id="scenario" class="connectedSortable">
+					</ul>
+					<div class="player-controls">
+						<div class="player-control">
+							<i id="play-pause" class="fa fa-play"></i>
+						</div>
+						<div class="player-control">
+							<i class="fa fa-stop"></i>
+						</div>
+						<div id="slider">
+							<span class="start-span">1</span>
+							<span class="end-span">100</span>
+						</div>
+					</div>	 
+			</div>
+
+			<div class="col-md-offset-2 col-md-3 command-block">
+				<ul id="command-list" class="connectedSortable">
+					<li class="btn draggable ui-widget-content">
+						Forward
+						<input type="text" value="30" maxlength="3">	
+					</li>
+					<li class="btn draggable ui-widget-content">
+						Right
+						<input type="text" value="90" maxlength="3">
+					</li>
+					<li class="btn draggable ui-widget-content">
+						Left
+						<input type="text" value="90" maxlength="3">	
+					</li>
+					<li class="repeat btn draggable ui-widget-content">
+						Repeat
+						<input type="text" value="3" maxlength="3">
+						<ul class="repeat connectedSortable"></ul>	
+					</li>
+				</ul>	
+			</div>	
+		
+		</div>		
+	</div>	
+	
+	<script src="public/js/jquery-2.1.4.min.js"></script>
+	<script src="public/js/jquery-ui.min.js"></script>
+	<script src="public/js/jquery-turtle.js"></script>
+	<script src="public/js/control.js"></script>
+	<script src="public/js/index.js"></script>
+</body>
+</html>
