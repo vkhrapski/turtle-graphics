@@ -2,14 +2,27 @@ $(function() {
 	
 	eval($.turtle());
 
-	$('ul.connectedSortable').sortable({
-		connectWith: 'ul',
-		cursor: 'move',
-		cursorAt: {
-			left: -10,
-			top: 10
-		}
-    });
+	$("#scenario").sortable({
+            revert: true,
+            stop: function(event, ui) {
+                if(!ui.item.data('tag') && !ui.item.data('handle')) {
+                    ui.item.data('tag', true);
+                    ui.item.fadeTo(400, 1);
+                }
+            },
+            out: function (event, ui) {
+                var self = ui;
+                ui.helper.off('mouseup').on('mouseup', function () {
+                    $(this).remove();
+                    self.draggable.remove();
+                });
+            }
+        });
+        $(".draggable").draggable({
+            connectToSortable: '#scenario',
+            helper: 'clone',
+            revert: 'invalid'
+        });
 
    
     $('#slider').slider(
