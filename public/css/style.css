@@ -34,15 +34,7 @@ body.dragging, body.dragging * {
 	color: #47a447;
 }
 
-ul {
-	padding: 20px 0;
-}
-
-li {
- 	list-style-type: none;
-}
-
-li>input {
+input[type='text'] {
 	width: 30px;
 	padding: 0;
 	float: right;
