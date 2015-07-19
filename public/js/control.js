@@ -38,16 +38,8 @@ $(function() {
 	$('#slider').css('background', '#FFFFFF').css('border', '1px solid white');
 	$('#slider .ui-slider-range').css('background', '#FFFFFF');
 
-	$("#play-pause").click(
-		function() {
-			$('.fa-play').toggleClass('fa-pause');
-		}
-	)
-
-	var commands = [];
 	$('.fa-play').click(
-		function() {
-			
+		function() {					
 		}
 	);
 });
