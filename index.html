@@ -18,8 +18,8 @@
 			<div class="col-xs-12 canv"></div>			
 			
 			<div class="col-md-offset-2 col-md-3 player">
-					<ul id="scenario" class="connectedSortable">
-					</ul>
+					<div id="scenario" class="connectedSortable">
+					</div>
 					<div class="player-controls">
 						<div class="player-control">
 							<i id="play-pause" class="fa fa-play"></i>
@@ -35,25 +35,25 @@
 			</div>
 
 			<div class="col-md-offset-2 col-md-3 command-block">
-				<ul id="command-list" class="connectedSortable">
-					<li class="btn draggable ui-widget-content" data-command="fd">
+				<div id="command-list" class="connectedSortable">
+					<div class="btn draggable ui-widget-content" data-command="fd">
 						Forward
 						<input type="text" value="30" maxlength="3">	
-					</li>
-					<li class="btn draggable ui-widget-content" data-command="rt">
+					</div>
+					<div class="btn draggable ui-widget-content" data-command="rt">
 						Right
 						<input type="text" value="90" maxlength="3">
-					</li>
-					<li class="btn draggable ui-widget-content" data-command="lt">
+					</div>
+					<div class="btn draggable ui-widget-content" data-command="lt">
 						Left
 						<input type="text" value="90" maxlength="3">	
-					</li>
-					<li class="repeat btn draggable ui-widget-content" data-command="rpt">
+					</div>
+					<div class="btn draggable ui-widget-content repeat" data-command="repeat">
 						Repeat
 						<input type="text" value="3" maxlength="3">
-						<ul class="repeat connectedSortable"></ul>	
-					</li>
-				</ul>	
+					</div>
+					<div class="btn draggable ui-widget-content repeat" data-command="end">End</div>
+				</div>	
 			</div>	
 		
 		</div>		
