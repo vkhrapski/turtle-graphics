@@ -1,15 +1,8 @@
-.dragged {
+/*.dragged {
   position: absolute;
   opacity: 0.5;
   z-index: 2000;
-}
-
-#command-list li.placeholder {
-  position: relative;
-}
-#command-list li.placeholder:before {
-  position: absolute;
-}
+}*/
 
 /*-------------------------------*/
 .command-block {
