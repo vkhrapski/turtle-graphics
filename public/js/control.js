@@ -25,7 +25,14 @@ $(function() {
 	speed(speedValue);
 	$('#scenario').sortable(
 		{
-            revert: true,
+            receive: function(e, ui) { sortableIn = 1; },
+			over: function(e, ui) { sortableIn = 1; },
+			out: function(e, ui) { sortableIn = 0; },
+			beforeStop: function(e, ui) {
+			   if (sortableIn == 0) { 
+			      ui.item.remove(); 
+			   } 
+			}
 	    }
     );
     $('.draggable').draggable(
@@ -36,8 +43,6 @@ $(function() {
     	}
     );
 
-   
-    
 
 	$('.fa-play').click(
 		function() {
@@ -67,12 +72,8 @@ $(function() {
 	                }		
 				}
 			);
-
-			$.each(commands, 
-				function(index, value) {
-					eval(value);
-				}
-			)
+			runScript(commands);
+			
 		}
 	);
 
@@ -100,7 +101,7 @@ var pushCommand = function(command, array, self) {
 			case 'lt':
 			case 'rt':
 			case 'fd':
-				var param = self.context.firstElementChild.value;
+				var param = self.context.firstElementChild.value || 0;
 				array.push(command + '(' + param + ');');
 				break;
 			default: break;
@@ -108,7 +109,10 @@ var pushCommand = function(command, array, self) {
 		return array;
 };
 
-var startScript
-    
-   
-	
+var runScript = function(commands) {
+	$.each(commands, 
+		function(index, value) {
+			eval(value);
+		}
+	)
+};
