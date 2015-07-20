@@ -79,18 +79,11 @@ $(function() {
 
 	$(".fa-stop").on('click', 
 		function() {
-		    cg();
-		    speed(1000);
-		    $('#turtle').home();
-	        jumpto(0,220);
-	        speed($('#slider').slider("option", "value"));
-	        $('#scenario>.draggable').remove();
+	        location.reload(false);
     	}
 	);
 	
-});
-
-var pushCommand = function(command, array, self) {
+	var pushCommand = function(command, array, self) {
 		switch(command){
 			case 'show':
 				array.push("pen('green');");
@@ -107,12 +100,16 @@ var pushCommand = function(command, array, self) {
 			default: break;
 		}
 		return array;
-};
+	};
 
-var runScript = function(commands) {
-	$.each(commands, 
-		function(index, value) {
-			eval(value);
-		}
-	)
-};
+	var runScript = function(commands) {
+		$.each(commands, 
+			function(index, value) {
+				eval(value);
+			}
+		)
+	};
+
+
+});
+
