@@ -1,48 +1,114 @@
 $(function() {
-	
-	eval($.turtle());
-
-	$("#scenario").sortable({
-            revert: true,
-            stop: function(event, ui) {
-                if(!ui.item.data('tag') && !ui.item.data('handle')) {
-                    ui.item.data('tag', true);
-                    ui.item.fadeTo(400, 1);
-                }
-            },
-            out: function (event, ui) {
-                var self = ui;
-                ui.helper.off('mouseup').on('mouseup', function () {
-                    $(this).remove();
-                    self.draggable.remove();
-                });
-            }
-        });
-        $(".draggable").draggable({
-            connectToSortable: '#scenario',
-            helper: 'clone',
-            revert: 'invalid'
-        });
-
-   
-    $('#slider').slider(
+	var speedValue = 1;
+	$('#slider').slider(
 		{
 			min: 1,
 			max: 100,
-			value: 20,
+			value: 1,
 			orientation: 'horizontal',
 			range: 'min',
 			animate: true,
+			slide: function( event, ui ) {
+          		speedValue = ui.value;
+          		$("#slider").val(speedValue);
+          		speed(speedValue);
+           	}
 		}
 	)
 	$('#slider').css('background', '#FFFFFF').css('border', '1px solid white');
 	$('#slider .ui-slider-range').css('background', '#FFFFFF');
 
+	eval($.turtle());
+	speed(1000);
+	jumpto(0,220);
+	pen('green');
+	speed(speedValue);
+	$('#scenario').sortable(
+		{
+            revert: true,
+	    }
+    );
+    $('.draggable').draggable(
+    	{
+	        connectToSortable: '#scenario',
+	        helper: 'clone',
+	        revert: 'invalid'
+    	}
+    );
+
+   
+    
+
 	$('.fa-play').click(
-		function() {					
+		function() {
+			var command = '', repeats = 0, commands = [], repeatedCommands = [];
+			$('#scenario>.draggable').each(
+				function(index, element){
+					command = $(this).data('command');
+	                if(repeats == 0) {
+		                if (command == 'repeat') {
+		                    repeats = $(this).context.firstElementChild.value;
+		                }
+		                else {
+							commands = pushCommand(command, commands, $(this));
+	                	}
+	                }				
+	                else {
+	                	if(command != 'end')
+	                	{
+	            			repeatedCommands = pushCommand(command, repeatedCommands, $(this));
+	                	}
+	                	else{
+	                		while(repeats != 0){
+		                		commands = commands.concat(repeatedCommands);
+		                		repeats--;
+		                	}	
+	                	}
+	                }		
+				}
+			);
+
+			$.each(commands, 
+				function(index, value) {
+					eval(value);
+				}
+			)
 		}
 	);
+
+	$(".fa-stop").on('click', 
+		function() {
+		    cg();
+		    speed(1000);
+		    $('#turtle').home();
+	        jumpto(0,220);
+	        speed($('#slider').slider("option", "value"));
+	        $('#scenario>.draggable').remove();
+    	}
+	);
+	
 });
+
+var pushCommand = function(command, array, self) {
+		switch(command){
+			case 'show':
+				array.push("pen('green');");
+				break;
+			case 'hide':
+				array.push("pen(null);");
+				break;
+			case 'lt':
+			case 'rt':
+			case 'fd':
+				var param = self.context.firstElementChild.value;
+				array.push(command + '(' + param + ');');
+				break;
+			default: break;
+		}
+		return array;
+};
+
+var startScript
     
    
 	
