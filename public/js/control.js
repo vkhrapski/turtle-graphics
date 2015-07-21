@@ -39,13 +39,18 @@ $(function() {
     	{
 	        connectToSortable: '#scenario',
 	        helper: 'clone',
-	        revert: 'invalid'
+	        revert: 'invalid',
+	        cursorAt: 
+	        {	
+	        	left: -20,
+	        	top: 10
+	        }
     	}
     );
 
 	$('.fa-play').click(
 		function() {
-			runScript(getCommandsArray(), startIndex);
+			runScript(getCommandsArray());
 		}
 	);
 
@@ -55,7 +60,7 @@ $(function() {
     	}
 	); 
 
-	var runScript = function(commands, start) {
+	var runScript = function(commands) {
 		$.each(commands, function(index, value){
       			eval(value);
 	    });
