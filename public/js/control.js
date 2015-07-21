@@ -44,38 +44,45 @@ $(function() {
     );
 
 
+	
+
+	
+    var startIndex = 0;
+	var terminate = false;  
+	var timeouts = [];
+
 	$('.fa-play').click(
 		function() {
-			var command = '', repeats = 0, commands = [], repeatedCommands = [];
-			$('#scenario>.draggable').each(
-				function(index, element){
-					command = $(this).data('command');
-	                if(repeats == 0) {
-		                if (command == 'repeat') {
-		                    repeats = $(this).context.firstElementChild.value;
-		                }
-		                else {
-							commands = pushCommand(command, commands, $(this));
-	                	}
-	                }				
-	                else {
-	                	if(command != 'end')
-	                	{
-	            			repeatedCommands = pushCommand(command, repeatedCommands, $(this));
-	                	}
-	                	else{
-	                		while(repeats != 0){
-		                		commands = commands.concat(repeatedCommands);
-		                		repeats--;
-		                	}	
-	                	}
-	                }		
-				}
-			);
-			runScript(commands);
-			
+			runScript(getCommandsArray(), startIndex);
 		}
 	);
+
+	$(".fa-pause").on('click', 
+		function() {
+		 	terminate = true;
+        	$.each(timeouts, function (id, value) {
+		        if(id >= startIndex) {
+		        	clearTimeout(id);
+	        	}
+		    });
+    	}
+	); 
+
+	var runScript = function(commands, start) {
+		$.each(commands, function(index, value){
+		    if(!terminate || startIndex > index)
+		    {
+		        timeouts.push(
+		         	setTimeout(
+		         		function() {
+		          			eval(value);
+		          			startIndex = index;
+		         		},
+	     				1000*index)
+				);
+		    }
+		});
+	};
 
 	$(".fa-stop").on('click', 
 		function() {
@@ -102,14 +109,34 @@ $(function() {
 		return array;
 	};
 
-	var runScript = function(commands) {
-		$.each(commands, 
-			function(index, value) {
-				eval(value);
+	var getCommandsArray = function() {
+		var command = '', repeats = 0, commands = [], repeatedCommands = [];
+		$('#scenario>.draggable').each(
+			function(index, element) {
+				command = $(this).data('command');
+                if(repeats == 0) {
+	                if (command == 'repeat') {
+	                    repeats = $(this).context.firstElementChild.value;
+	                }
+	                else {
+						commands = pushCommand(command, commands, $(this));
+                	}
+                }				
+                else {
+                	if(command != 'end') {
+            			repeatedCommands = pushCommand(command, repeatedCommands, $(this));
+                	}
+                	else {
+                		while(repeats != 0) {
+	                		commands = commands.concat(repeatedCommands);
+	                		repeats--;
+	                	}	
+                	}
+                }		
 			}
-		)
+		);
+		return commands;
 	};
-
 
 });
 
