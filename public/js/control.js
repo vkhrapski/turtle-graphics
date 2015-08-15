@@ -39,10 +39,16 @@ $(function() {
     	{
 	        connectToSortable: '#scenario',
 	        helper: 'clone',
-	        revert: 'invalid'
+	        revert: 'invalid',
+	        cursorAt: 
+	        {	
+	        	left: -20,
+	        	top: 10
+	        }
     	}
     );
 
+<<<<<<< HEAD
 
 	
 
@@ -54,11 +60,17 @@ $(function() {
 	$('.fa-play').click(
 		function() {
 			runScript(getCommandsArray(), startIndex);
+=======
+	$('.fa-play').click(
+		function() {
+			runScript(getCommandsArray());
+>>>>>>> master
 		}
 	);
 
 	$(".fa-pause").on('click', 
 		function() {
+<<<<<<< HEAD
 		 	terminate = true;
         	$.each(timeouts, function (id, value) {
 		        if(id >= startIndex) {
@@ -82,6 +94,16 @@ $(function() {
 				);
 		    }
 		});
+=======
+		 	
+    	}
+	); 
+
+	var runScript = function(commands) {
+		$.each(commands, function(index, value){
+      			eval(value);
+	    });
+>>>>>>> master
 	};
 
 	$(".fa-stop").on('click', 
